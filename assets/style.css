@@ -1,0 +1,77 @@
+/* Shared look for the student pages: light, calm, system fonts only, nothing loaded from the network. */
+:root {
+  --era-bits: #8a5a00;      /* 1950s, 5.9:1 on white */
+  --era-build: #4a5a68;     /* 7.1:1 */
+  --era-assembly: #b0361c;  /* 1970s, 6.2:1 */
+  --era-c: #1f5fa8;         /* 1980/90s, 6.4:1 */
+  --era-web: #0b7a4f;       /* 2000s, 5.4:1 */
+  --era-ai: #0e7490;        /* 2020s, 5.4:1 */
+  --accent: var(--era-build);
+  --ampel-red: #b42318;
+  --ampel-yellow: #8a6400;
+  --ampel-green: #1e7a34;
+  --ampel-purple: #6d3fc0;
+  --text: #1f2933;
+  --muted: #52606d;
+  --bg: #ffffff;
+  --panel: #f4f6f8;
+  --line: #d5dbe1;
+}
+body[data-era="bits"] { --accent: var(--era-bits); }
+body[data-era="build"] { --accent: var(--era-build); }
+body[data-era="assembly"] { --accent: var(--era-assembly); }
+body[data-era="c"] { --accent: var(--era-c); }
+body[data-era="web"] { --accent: var(--era-web); }
+body[data-era="ai"] { --accent: var(--era-ai); }
+
+body { margin: 0 auto; padding: 1.5rem 1rem 3rem; max-width: 46rem; background: var(--bg); color: var(--text);
+  font: 1.0625rem/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+h1, h2, h3 { color: var(--accent); line-height: 1.25; }
+h1 { border-bottom: 3px solid var(--accent); padding-bottom: .3rem; }
+a { color: var(--accent); }
+code, pre, kbd { font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace; font-size: .95em; }
+pre { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .75rem; overflow-x: auto; }
+code { background: var(--panel); padding: 0 .25em; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; }
+th, td { border: 1px solid var(--line); padding: .3rem .6rem; text-align: left; }
+svg { max-width: 100%; height: auto; }
+[data-mask] { display: inline-block; vertical-align: middle; }
+
+.task { border-left: 6px solid var(--accent); background: var(--panel); border-radius: 0 6px 6px 0; padding: .6rem 1rem; margin: 1.2rem 0; }
+.task > :first-child { margin-top: 0; }
+.task > :last-child { margin-bottom: 0; }
+.hint { border: 1px solid var(--line); border-radius: 6px; padding: .4rem .9rem; margin: .6rem 0; }
+.hint > summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+.optional { color: var(--muted); font-style: italic; }
+.selftest { border: 2px dashed var(--accent); border-radius: 6px; padding: .6rem 1rem; margin: 1.2rem 0; }
+
+.crumbs { font-size: .9rem; margin-bottom: 1rem; }
+.crumbs a { color: var(--muted); }
+.lead { font-size: 1.15rem; }
+.example { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 6px; padding: .6rem 1rem; margin: 1rem 0; }
+.example > :first-child { margin-top: 0; }
+.level { display: inline-block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 0 .4em; margin-right: .4em; vertical-align: middle; }
+.masks { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin: 1rem 0; }
+.masks figure { margin: 0; text-align: center; }
+.masks figcaption { font-size: .9rem; color: var(--muted); max-width: 13rem; }
+.hexgrid td { font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace; text-align: center; }
+.hexgrid b { color: var(--accent); }
+.parts td:first-child { white-space: nowrap; }
+
+/* Traffic-light chip: the word is always in the text, colour only supports it. */
+.ampel { display: inline-block; padding: 0 .6em; border-radius: 1em; font-weight: 700; color: #fff; background: var(--muted); }
+.ampel.red { background: var(--ampel-red); }
+.ampel.yellow { background: var(--ampel-yellow); }
+.ampel.green { background: var(--ampel-green); }
+.ampel.purple { background: var(--ampel-purple); }
+
+@media print {
+  @page { size: A4; margin: 15mm; }
+  body { max-width: none; padding: 0; font-size: 11pt; color: #000; }
+  h1, h2, h3, .task, .hint, .selftest, pre { break-inside: avoid; }
+  .hint[open] > summary ~ * { display: block; }
+  a { color: inherit; text-decoration: underline; }
+  .ampel { border: 1px solid #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  [data-mask] svg * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
